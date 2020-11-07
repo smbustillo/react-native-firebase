@@ -13,6 +13,10 @@ const CreateUserScreen = () => {
         setState({...state, [name]:value })
     }
 
+    const saveNewUser = () => {
+        console.log(state)
+    }
+
     return (
         <ScrollView style={Styles.container}>
             <View style={Styles.inputGroup} >
@@ -29,7 +33,7 @@ const CreateUserScreen = () => {
             </View>
 
             <View>
-                <Button title="Añadir Usuario" />
+                <Button title="Añadir Usuario" onPress={() => saveNewUser() } />
             </View>
         </ScrollView>
     )
