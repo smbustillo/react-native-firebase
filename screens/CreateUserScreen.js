@@ -1,7 +1,9 @@
+import { useLinkProps } from '@react-navigation/native'
 import React,{useState} from 'react'
 import {View, Button, TextInput, ScrollView, StyleSheet} from 'react-native'
+import firebase from '../database/firebase'
 
-const CreateUserScreen = () => {
+const CreateUserScreen = (props) => {
 
     const [state, setState] = useState({
         name: '',
@@ -13,8 +15,23 @@ const CreateUserScreen = () => {
         setState({...state, [name]:value })
     }
 
-    const saveNewUser = () => {
-        console.log(state)
+    const saveNewUser = async () => {
+        if(state.name === '' ){
+            alert('Introduzca el nombre')
+        }else {
+            try{
+                await firebase.db.collection('users').add({
+                    name: state.name,
+                    email: state.email,
+                    phone: state.phone
+                })
+                props.navigation.navigate('UsersList');
+            }catch (error) {
+                console.log(error)
+            }
+            
+        }
+        
     }
 
     return (
